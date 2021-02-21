@@ -21,13 +21,13 @@ namespace DIO.Series
                         InserirSerie();
                         break;
                     case "3":
-                        //AtualizarSerie();
+                        AtualizarSerie();
                         break;
                     case "4":
-                        //ExcluirSerie();
+                        ExcluirSerie();
                         break;
                     case "5":
-                        //VisualizarSerie();
+                        VisualizarSerie();
                         break;
                     case "C":
                         Console.Clear();
@@ -42,14 +42,44 @@ namespace DIO.Series
             Console.WriteLine("Fim");
         }
 
-        private static void InserirSerie()
+        private static void VisualizarSerie()
         {
-            Console.WriteLine("Listar Series");
+            Console.WriteLine("Visualizar Serie");
+
+            Console.WriteLine("Digite o ID da Serie:");
+            int id = Convert.ToInt32(Console.ReadLine());     
+
+            Serie serie = Repositorio.RetornaPorId(id);
+            Console.WriteLine(serie);
+
+        }
+
+        private static void ExcluirSerie()
+        {
+            Console.WriteLine("Excluir Serie");
+
+            Console.WriteLine("Digite o ID da Serie:");
+            int id = Convert.ToInt32(Console.ReadLine());    
+
+            Repositorio.Exclui(id);    
+        }
+
+        private static void AtualizarSerie()
+        {
+            Console.WriteLine("Atualizar Serie");
+
+            Console.WriteLine("Digite o ID da Serie:");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            Serie serie = PedirInputDeDadosSerie();
+            Repositorio.Atualiza(id, serie);
+        }
+
+        private static Serie PedirInputDeDadosSerie() {
 
             foreach(int i in Enum.GetValues(typeof(Genero))) {
                 Console.WriteLine("{0} - {1}", i, Enum.GetName(typeof(Genero), i));
             }
-
             Console.WriteLine("Digite o genero conforme opções acima: ");
             int entradaGenero = Convert.ToInt32(Console.ReadLine());
 
@@ -62,8 +92,16 @@ namespace DIO.Series
             Console.WriteLine("Digite a descrição da serie: ");
             string entradaDescricao = Console.ReadLine();
 
-            Serie novaSerie = new Serie(Repositorio.ProximoId(), (Genero)entradaGenero, entradaTitulo, entradaDescricao, entradaAno);
-            Repositorio.Insere(novaSerie);
+            Serie serie = new Serie(Repositorio.ProximoId(), (Genero)entradaGenero, entradaTitulo, entradaDescricao, entradaAno);
+
+            return serie;
+        }
+
+        private static void InserirSerie()
+        {
+            Console.WriteLine("Inserir Serie");
+            Serie serie = PedirInputDeDadosSerie();
+            Repositorio.Insere(serie);
         }
 
         private static void ListarSeries()
