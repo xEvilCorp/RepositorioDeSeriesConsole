@@ -9,12 +9,14 @@ namespace DIO.Series
             Titulo = titulo;
             Descricao = descricao;
             Ano = ano;
+            Excluido = false;
         }
 
         private Genero Genero {get; set;}
         private string Titulo {get; set;}
         private string Descricao {get; set;}
         private int Ano {get; set;}
+        private bool Excluido {get; set;}
 
         public override string ToString() {
             string retorno = "";
@@ -32,6 +34,14 @@ namespace DIO.Series
 
         public int GetId() {
             return Id;
+        }
+
+        public void Excluir() {
+            Excluido = true;
+        }
+
+        public bool IsAvailable(){
+            return !Excluido;
         }
     }
 }

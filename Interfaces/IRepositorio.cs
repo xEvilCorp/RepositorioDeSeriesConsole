@@ -11,7 +11,7 @@ namespace DIO.Series
 
        void Insere(T entidade);
 
-       void Exclui(T entidade);
+       void Exclui(int id);
 
        void Atualiza(int id, T entidade);
 
